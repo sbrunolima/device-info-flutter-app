@@ -1,5 +1,9 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import "package:system_info/system_info.dart";
+import 'package:device_info_plus/device_info_plus.dart';
 
 class ProcessorWidget extends StatefulWidget {
   @override
@@ -7,6 +11,8 @@ class ProcessorWidget extends StatefulWidget {
 }
 
 class _ProcessorWidgetState extends State<ProcessorWidget> {
+  static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+  Map<String, dynamic> _deviceData = <String, dynamic>{};
   String processorVendor = '';
   String processorName = '';
   String processorCores = '';
@@ -21,6 +27,7 @@ class _ProcessorWidgetState extends State<ProcessorWidget> {
 
   void setVendor() async {
     final processors = SysInfo.processors;
+    print('ANDROIDINFOTEST: ${SysInfo.userName}');
 
     for (var processor in processors) {
       setState(() {
@@ -39,7 +46,7 @@ class _ProcessorWidgetState extends State<ProcessorWidget> {
     return Container(
       width: mediaQuery,
       child: Card(
-        color: Colors.orangeAccent,
+        color: Colors.white24,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(14),
         ),
@@ -55,15 +62,23 @@ class _ProcessorWidgetState extends State<ProcessorWidget> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(processorVendor),
-                Text(processorName),
-                Text(processorArchitecture),
-                Text(processorCores),
+                cpuData(processorVendor),
+                cpuData(processorName),
+                cpuData(processorArchitecture),
+                cpuData('$processorCores cores'),
               ],
             ),
           ],
         ),
       ),
     );
+  }
+
+  Widget cpuData(String data) {
+    return Text(data,
+        style: Theme.of(context)
+            .textTheme
+            .bodyText1!
+            .copyWith(color: Colors.white));
   }
 }

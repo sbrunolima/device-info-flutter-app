@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import "package:system_info/system_info.dart";
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:enefty_icons/enefty_icons.dart';
+import 'package:fl_chart/fl_chart.dart';
 
 class RamWidget extends StatefulWidget {
   @override
@@ -38,7 +39,7 @@ class _RamWidgetState extends State<RamWidget> {
     return Container(
       width: mediaQuery,
       child: Card(
-        color: Colors.orangeAccent,
+        color: Colors.lightGreenAccent,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(14),
         ),
@@ -51,40 +52,14 @@ class _RamWidgetState extends State<RamWidget> {
               const SizedBox(height: 10),
               Row(
                 children: [
-                  Row(
-                    children: [
-                      const Icon(EneftyIcons.a_3d_cube_bold,
-                          color: Colors.white, size: 20),
-                      Text(
-                        'RAM - ${SysInfo.getVirtualMemorySize() ~/ MEGABYTE}',
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 16,
-                              color: Colors.white,
-                            ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(width: 2),
-                  Text(
-                    'MB Total',
-                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                        fontSize: 12),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
                   CircularPercentIndicator(
-                    radius: 50,
+                    radius: 40,
                     percent: indicatorPercent,
                     progressColor: Colors.white,
-                    backgroundColor: Colors.black26,
+                    backgroundColor: Colors.black12,
                     circularStrokeCap: CircularStrokeCap.round,
                     animation: true,
-                    animationDuration: 1500,
+                    animationDuration: 3500,
                     lineWidth: 5,
                     center: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -95,8 +70,8 @@ class _RamWidgetState extends State<RamWidget> {
                           style:
                               Theme.of(context).textTheme.bodyText1!.copyWith(
                                     fontWeight: FontWeight.w700,
-                                    color: Colors.white,
-                                    fontSize: 35,
+                                    color: Colors.black,
+                                    fontSize: 26,
                                   ),
                         ),
                         Padding(
@@ -105,99 +80,78 @@ class _RamWidgetState extends State<RamWidget> {
                             '%',
                             style:
                                 Theme.of(context).textTheme.bodyText1!.copyWith(
-                                      color: Colors.white,
-                                      fontSize: 18,
+                                      color: Colors.black,
                                     ),
                           ),
                         ),
                       ],
                     ),
                   ),
-                  const SizedBox(width: 2),
+                  const SizedBox(width: 12),
                   Container(
-                    height: 80,
-                    width: 160,
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    height: 100,
+                    width: 250,
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black12),
+                      color: Colors.black12,
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            const Icon(
-                              EneftyIcons.a_3d_cube_bold,
-                              color: Colors.red,
-                              size: 20,
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  'Used - ${usedRam ~/ MEGABYTE}',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .copyWith(
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 16,
-                                        color: Colors.white,
-                                      ),
-                                ),
-                                Text(
-                                  'MB',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .copyWith(
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.white,
-                                          fontSize: 12),
-                                ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: LineChart(
+                        LineChartData(
+                          minX: 0,
+                          maxX: 4,
+                          minY: 0,
+                          maxY: 2,
+                          lineBarsData: [
+                            LineChartBarData(
+                              spots: [
+                                const FlSpot(0, 0),
+                                FlSpot(1, indicatorPercent - 0.4),
+                                FlSpot(2, indicatorPercent - 0.2),
+                                FlSpot(3, indicatorPercent + 0.2),
+                                FlSpot(4, indicatorPercent + 1),
                               ],
+                              isCurved: true,
+                              color: Colors.white,
+                              dotData: FlDotData(
+                                show: false,
+                              ),
                             ),
                           ],
+                          titlesData: FlTitlesData(
+                            show: false,
+                          ),
+                          gridData: FlGridData(
+                            show: true,
+                            getDrawingHorizontalLine: (value) {
+                              return FlLine(
+                                color: Colors.amber,
+                                strokeWidth: 1.5,
+                              );
+                            },
+                            drawVerticalLine: true,
+                            drawHorizontalLine: true,
+                          ),
+                          borderData: FlBorderData(
+                            show: true,
+                            border: Border.all(color: Colors.transparent),
+                          ),
                         ),
-                        const SizedBox(height: 10),
-                        Row(
-                          children: [
-                            const Icon(
-                              EneftyIcons.a_3d_cube_bold,
-                              color: Colors.green,
-                              size: 20,
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  'Free - ${SysInfo.getFreeVirtualMemory() ~/ MEGABYTE}',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .copyWith(
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 16,
-                                        color: Colors.white,
-                                      ),
-                                ),
-                                Text(
-                                  'MB',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .copyWith(
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.white,
-                                          fontSize: 12),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
+                      ),
                     ),
-                  )
+                  ),
+                ],
+              ),
+              const Divider(color: Colors.white),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  bottomData('Total RAM',
+                      '${SysInfo.getVirtualMemorySize() ~/ MEGABYTE} MB'),
+                  bottomData('Free RAM', '${usedRam ~/ MEGABYTE} MB'),
+                  bottomData('Used RAM',
+                      '${SysInfo.getFreeVirtualMemory() ~/ MEGABYTE} MB'),
                 ],
               ),
               const SizedBox(height: 10),
@@ -205,6 +159,37 @@ class _RamWidgetState extends State<RamWidget> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget bottomData(String title, String ramData) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+                color: Colors.black,
+              ),
+        ),
+        Row(
+          children: [
+            const Icon(EneftyIcons.a_3d_cube_bold,
+                color: Colors.black, size: 18),
+            const SizedBox(width: 2),
+            Text(
+              ramData,
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                  fontWeight: FontWeight.w700,
+                  color: Colors.grey,
+                  fontSize: 12),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
