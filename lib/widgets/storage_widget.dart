@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:storage_info/storage_info.dart';
 
+//Widgets
+import '../widgets/card_titles_widget.dart';
+
 class StorageWidget extends StatefulWidget {
   @override
   State<StorageWidget> createState() => _StorageWidgetState();
@@ -63,14 +66,14 @@ class _StorageWidgetState extends State<StorageWidget> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  storageTitles('Internal Storage', true),
+                  CardTitlesWidget(title: 'Internal Storage', isTitle: true),
                   sizedBox,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       LinearPercentIndicator(
                         lineHeight: 6,
-                        width: 260,
+                        width: 250,
                         percent: indicatorPercent,
                         animation: true,
                         animationDuration: 2500,
@@ -90,12 +93,14 @@ class _StorageWidgetState extends State<StorageWidget> {
                   sizedBox,
                   Row(
                     children: [
-                      storageTitles(
-                          'Total: ${(totalStorageInGB ~/ GIGAGABYTE).toStringAsFixed(2)} GB,',
-                          false),
-                      storageTitles(
-                          'Free: ${(freeStorageInGB ~/ GIGAGABYTE).toStringAsFixed(2)} GB',
-                          false),
+                      CardTitlesWidget(
+                          title:
+                              'Total: ${(totalStorageInGB ~/ GIGAGABYTE).toStringAsFixed(2)} GB,',
+                          isTitle: false),
+                      CardTitlesWidget(
+                          title:
+                              'Free: ${(freeStorageInGB ~/ GIGAGABYTE).toStringAsFixed(2)} GB',
+                          isTitle: false),
                     ],
                   ),
                 ],
@@ -103,20 +108,6 @@ class _StorageWidgetState extends State<StorageWidget> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget storageTitles(String title, bool isTitle) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: Text(
-        title,
-        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-              color: Colors.white,
-              fontWeight: isTitle ? FontWeight.w600 : FontWeight.w400,
-              fontSize: isTitle ? 16 : 14,
-            ),
       ),
     );
   }

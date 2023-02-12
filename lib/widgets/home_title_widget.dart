@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class TitleWIdget extends StatelessWidget {
+class HomeTitleWidget extends StatelessWidget {
   final String title;
 
-  TitleWIdget({required this.title});
+  HomeTitleWidget({required this.title});
 
   @override
   Widget build(BuildContext context) {

@@ -15,6 +15,8 @@ class _RamWidgetState extends State<RamWidget> {
   double indicatorPercent = 0;
   static int MEGABYTE = 1024 * 1024;
 
+  int _deviceMemory = -1;
+
   @override
   void initState() {
     super.initState();
@@ -22,7 +24,7 @@ class _RamWidgetState extends State<RamWidget> {
   }
 
   void calculateRamPercent() {
-    var _totalRam = SysInfo.getVirtualMemorySize();
+    var _totalRam = SysInfo.getTotalPhysicalMemory();
     var _freeRam = SysInfo.getFreeVirtualMemory();
     var _percentStepOne = (_freeRam / _totalRam) * 100;
     var _percentStepTwo = 100 - _percentStepOne;
@@ -31,6 +33,7 @@ class _RamWidgetState extends State<RamWidget> {
       indicatorPercent = _percentStepTwo / 100;
       usedRam = _totalRam - _freeRam;
     });
+    print('Calculating...');
   }
 
   @override
@@ -100,7 +103,7 @@ class _RamWidgetState extends State<RamWidget> {
                       child: LineChart(
                         LineChartData(
                           minX: 0,
-                          maxX: 4,
+                          maxX: 7,
                           minY: 0,
                           maxY: 2,
                           lineBarsData: [
@@ -110,7 +113,8 @@ class _RamWidgetState extends State<RamWidget> {
                                 FlSpot(1, indicatorPercent - 0.4),
                                 FlSpot(2, indicatorPercent - 0.2),
                                 FlSpot(3, indicatorPercent + 0.2),
-                                FlSpot(4, indicatorPercent + 1),
+                                FlSpot(5, indicatorPercent + 0.4),
+                                FlSpot(7, indicatorPercent + 1),
                               ],
                               isCurved: true,
                               color: Colors.white,
@@ -148,9 +152,9 @@ class _RamWidgetState extends State<RamWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   bottomData('Total RAM',
-                      '${SysInfo.getVirtualMemorySize() ~/ MEGABYTE} MB'),
-                  bottomData('Free RAM', '${usedRam ~/ MEGABYTE} MB'),
-                  bottomData('Used RAM',
+                      '${SysInfo.getTotalPhysicalMemory() ~/ MEGABYTE} MB'),
+                  bottomData('Used RAM', '${usedRam ~/ MEGABYTE} MB'),
+                  bottomData('Free RAM',
                       '${SysInfo.getFreeVirtualMemory() ~/ MEGABYTE} MB'),
                 ],
               ),

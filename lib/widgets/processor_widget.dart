@@ -1,9 +1,11 @@
-import 'dart:async';
-import 'dart:io';
-
+import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 import "package:system_info/system_info.dart";
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:enefty_icons/enefty_icons.dart';
+
+//Widgets
+import '../widgets/card_titles_widget.dart';
 
 class ProcessorWidget extends StatefulWidget {
   @override
@@ -62,10 +64,14 @@ class _ProcessorWidgetState extends State<ProcessorWidget> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                cpuData(processorVendor),
-                cpuData(processorName),
-                cpuData(processorArchitecture),
-                cpuData('$processorCores cores'),
+                processorWidget(
+                    processorVendor, EneftyIcons.crown_2_outline, true),
+                myDivider(),
+                processorWidget(processorName, EneftyIcons.cpu_outline, false),
+                processorWidget(
+                    processorArchitecture, EneftyIcons.layer_outline, false),
+                processorWidget('$processorCores cores',
+                    EneftyIcons.cpu_setting_outline, false),
               ],
             ),
           ],
@@ -74,11 +80,42 @@ class _ProcessorWidgetState extends State<ProcessorWidget> {
     );
   }
 
+  Widget myDivider() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 4),
+      child: Container(
+        height: 2,
+        width: 250,
+        decoration: const BoxDecoration(
+          border: Border(
+            bottom: BorderSide(color: Colors.lightGreen, width: 1.0),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget processorWidget(String title, IconData icon, bool titleON) {
+    return Row(
+      children: [
+        Icon(
+          icon,
+          color: Colors.white,
+          size: 16,
+        ),
+        CardTitlesWidget(
+          title: title,
+          isTitle: titleON,
+        ),
+      ],
+    );
+  }
+
   Widget cpuData(String data) {
-    return Text(data,
-        style: Theme.of(context)
-            .textTheme
-            .bodyText1!
-            .copyWith(color: Colors.white));
+    return Text(
+      data,
+      style:
+          Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.white),
+    );
   }
 }
