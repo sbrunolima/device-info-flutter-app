@@ -54,44 +54,50 @@ class _SystemWidgetState extends State<SystemWidget> {
           borderRadius: BorderRadius.circular(14),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
+          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+          child: Column(
             children: [
-              CircleAvatar(
-                radius: 40,
-                backgroundColor: Colors.green,
-                child: Text(
-                  '${_deviceData['version.release'].toString()}',
-                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                      color: Colors.white,
-                      fontSize: 44,
-                      fontWeight: FontWeight.w200),
-                ),
+              const SizedBox(height: 5),
+              Row(
+                children: [
+                  CircleAvatar(
+                    radius: 40,
+                    backgroundColor: Colors.green,
+                    child: Text(
+                      '${_deviceData['version.release'].toString()}',
+                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                          color: Colors.white,
+                          fontSize: 44,
+                          fontWeight: FontWeight.w200),
+                    ),
+                  ),
+                  Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        androidVersionWidget(
+                          'Android ${_deviceData['version.release'].toString()}',
+                          Icons.android_outlined,
+                          true,
+                        ),
+                        myDivider(mediaQuery),
+                        androidVersionWidget(
+                          'API Level ${_deviceData['version.sdkInt'].toString()}',
+                          Icons.code_rounded,
+                          false,
+                        ),
+                        androidVersionWidget(
+                          'Release: ${_deviceData['version.securityPatch'].toString()}',
+                          Icons.date_range_outlined,
+                          false,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    androidVersionWidget(
-                      'Android ${_deviceData['version.release'].toString()}',
-                      Icons.android_outlined,
-                      true,
-                    ),
-                    myDivider(),
-                    androidVersionWidget(
-                      'API Level ${_deviceData['version.sdkInt'].toString()}',
-                      Icons.code_rounded,
-                      false,
-                    ),
-                    androidVersionWidget(
-                      'Release: ${_deviceData['version.securityPatch'].toString()}',
-                      Icons.date_range_outlined,
-                      false,
-                    ),
-                  ],
-                ),
-              ),
+              const SizedBox(height: 5),
             ],
           ),
         ),
@@ -99,12 +105,12 @@ class _SystemWidgetState extends State<SystemWidget> {
     );
   }
 
-  Widget myDivider() {
+  Widget myDivider(var mediaQuery) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       child: Container(
         height: 2,
-        width: 250,
+        width: mediaQuery - 155,
         decoration: const BoxDecoration(
           border: Border(
             bottom: BorderSide(color: Colors.lightGreen, width: 1.0),

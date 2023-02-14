@@ -52,40 +52,47 @@ class _ProcessorWidgetState extends State<ProcessorWidget> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(14),
         ),
-        child: Row(
+        child: Column(
           children: [
-            Image.asset(
-              processorVendor.toLowerCase() == 'qualcomm'
-                  ? 'assets/qualcomm.png'
-                  : 'assets/teste.png',
-              height: 100,
-              width: 100,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            const SizedBox(height: 5),
+            Row(
               children: [
-                processorWidget(
-                    processorVendor, EneftyIcons.crown_2_outline, true),
-                myDivider(),
-                processorWidget(processorName, EneftyIcons.cpu_outline, false),
-                processorWidget(
-                    processorArchitecture, EneftyIcons.layer_outline, false),
-                processorWidget('$processorCores cores',
-                    EneftyIcons.cpu_setting_outline, false),
+                Image.asset(
+                  processorVendor.toLowerCase() == 'qualcomm'
+                      ? 'assets/qualcomm.png'
+                      : 'assets/noimage.png',
+                  height: 100,
+                  width: 100,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    processorWidget(
+                        processorVendor, EneftyIcons.crown_2_outline, true),
+                    myDivider(mediaQuery),
+                    processorWidget(
+                        processorName, EneftyIcons.cpu_outline, false),
+                    processorWidget(processorArchitecture,
+                        EneftyIcons.layer_outline, false),
+                    processorWidget('$processorCores cores',
+                        EneftyIcons.cpu_setting_outline, false),
+                  ],
+                ),
               ],
             ),
+            const SizedBox(height: 5),
           ],
         ),
       ),
     );
   }
 
-  Widget myDivider() {
+  Widget myDivider(var mediaQuery) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 4),
       child: Container(
         height: 2,
-        width: 250,
+        width: mediaQuery - 155,
         decoration: const BoxDecoration(
           border: Border(
             bottom: BorderSide(color: Colors.lightGreen, width: 1.0),
@@ -108,14 +115,6 @@ class _ProcessorWidgetState extends State<ProcessorWidget> {
           isTitle: titleON,
         ),
       ],
-    );
-  }
-
-  Widget cpuData(String data) {
-    return Text(
-      data,
-      style:
-          Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.white),
     );
   }
 }

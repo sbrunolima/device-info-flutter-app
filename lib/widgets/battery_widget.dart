@@ -31,80 +31,83 @@ class _BatteryWidgetState extends State<BatteryWidget> {
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
-                child: Row(
+                child: Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 8),
-                      child: Image.asset(
-                        'assets/battery.png',
-                        height: 50,
-                        width: 50,
-                      ),
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    const SizedBox(height: 5),
+                    Row(
                       children: [
-                        CardTitlesWidget(
-                          title: 'Battery',
-                          isTitle: true,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 8),
+                          child: Image.asset(
+                            'assets/battery.png',
+                            height: 50,
+                            width: 50,
+                          ),
                         ),
-                        sizedBox,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            LinearPercentIndicator(
-                              lineHeight: 6,
-                              width: 250,
-                              percent: batteryPercent,
-                              animation: true,
-                              animationDuration: 2500,
-                              progressColor: Colors.white,
-                              backgroundColor: Colors.black12,
-                              barRadius: const Radius.circular(16),
+                            CardTitlesWidget(
+                              title: 'Battery',
+                              isTitle: true,
                             ),
-                            Text(
-                              '${snapshot.data!.batteryLevel}%',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1!
-                                  .copyWith(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                            ),
-                          ],
-                        ),
-                        sizedBox,
-                        snapshot.data!.chargingStatus != ChargingStatus.Charging
-                            ? Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      CardTitlesWidget(
-                                        title:
-                                            'Voltage: ${(snapshot.data!.voltage)}mV,',
-                                        isTitle: false,
+                            sizedBox,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                LinearPercentIndicator(
+                                  lineHeight: 6,
+                                  width: mediaQuery - 150,
+                                  percent: batteryPercent,
+                                  animation: true,
+                                  animationDuration: 2500,
+                                  progressColor: Colors.white,
+                                  backgroundColor: Colors.black12,
+                                  barRadius: const Radius.circular(16),
+                                ),
+                                Text(
+                                  '${snapshot.data!.batteryLevel}%',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1!
+                                      .copyWith(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w700,
                                       ),
-                                      CardTitlesWidget(
-                                        title:
-                                            'Temp: ${(snapshot.data!.temperature)}°C',
-                                        isTitle: false,
+                                ),
+                              ],
+                            ),
+                            sizedBox,
+                            snapshot.data!.chargingStatus !=
+                                    ChargingStatus.Charging
+                                ? Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          cardSubtitles(
+                                            'Voltage: ${(snapshot.data!.voltage)}mV, \t\tTemp: ${(snapshot.data!.temperature)}°C',
+                                            mediaQuery,
+                                          ),
+                                        ],
                                       ),
                                     ],
-                                  ),
-                                ],
-                              )
-                            : CardTitlesWidget(
-                                title:
+                                  )
+                                : cardSubtitles(
                                     'Charge time: ${(snapshot.data!.chargeTimeRemaining! / 1000 / 60).truncate()} minutes',
-                                isTitle: false,
-                              ),
+                                    mediaQuery,
+                                  ),
+                          ],
+                        ),
                       ],
                     ),
+                    const SizedBox(height: 5),
                   ],
                 ),
               ),
@@ -113,6 +116,24 @@ class _BatteryWidgetState extends State<BatteryWidget> {
         }
         return Text('Loading...');
       },
+    );
+  }
+
+  Widget cardSubtitles(String title, var mediaQuery) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Container(
+        width: mediaQuery - 180,
+        child: Text(
+          title,
+          overflow: TextOverflow.ellipsis,
+          style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                color: Colors.white,
+                fontWeight: FontWeight.w400,
+                fontSize: 14,
+              ),
+        ),
+      ),
     );
   }
 }

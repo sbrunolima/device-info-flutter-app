@@ -8,15 +8,20 @@ class CardTitlesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: Text(
-        title,
-        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-              color: Colors.white,
-              fontWeight: isTitle ? FontWeight.w600 : FontWeight.w400,
-              fontSize: isTitle ? 16 : 14,
-            ),
+      child: Container(
+        width: mediaQuery - 180,
+        child: Text(
+          title,
+          overflow: TextOverflow.ellipsis,
+          style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                color: Colors.white,
+                fontWeight: isTitle ? FontWeight.w600 : FontWeight.w400,
+                fontSize: isTitle ? 16 : 14,
+              ),
+        ),
       ),
     );
   }

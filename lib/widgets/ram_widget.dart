@@ -93,7 +93,7 @@ class _RamWidgetState extends State<RamWidget> {
                   const SizedBox(width: 12),
                   Container(
                     height: 100,
-                    width: 250,
+                    width: mediaQuery - 155,
                     decoration: BoxDecoration(
                       color: Colors.black12,
                       borderRadius: BorderRadius.circular(10),

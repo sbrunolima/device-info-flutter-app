@@ -51,62 +51,85 @@ class _StorageWidgetState extends State<StorageWidget> {
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Row(
+          child: Column(
             children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                child: Image.asset(
-                  'assets/hard_drive.png',
-                  height: 50,
-                  width: 50,
-                ),
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+              const SizedBox(height: 5),
+              Row(
                 children: [
-                  CardTitlesWidget(title: 'Internal Storage', isTitle: true),
-                  sizedBox,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      LinearPercentIndicator(
-                        lineHeight: 6,
-                        width: 250,
-                        percent: indicatorPercent,
-                        animation: true,
-                        animationDuration: 2500,
-                        progressColor: Colors.white,
-                        backgroundColor: Colors.black12,
-                        barRadius: const Radius.circular(16),
-                      ),
-                      Text(
-                        '$storagePercentUsed%',
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w700,
-                            ),
-                      ),
-                    ],
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                    child: Image.asset(
+                      'assets/hard_drive.png',
+                      height: 50,
+                      width: 50,
+                    ),
                   ),
-                  sizedBox,
-                  Row(
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CardTitlesWidget(
-                          title:
-                              'Total: ${(totalStorageInGB ~/ GIGAGABYTE).toStringAsFixed(2)} GB,',
-                          isTitle: false),
-                      CardTitlesWidget(
-                          title:
-                              'Free: ${(freeStorageInGB ~/ GIGAGABYTE).toStringAsFixed(2)} GB',
-                          isTitle: false),
+                          title: 'Internal Storage', isTitle: true),
+                      sizedBox,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          LinearPercentIndicator(
+                            lineHeight: 6,
+                            width: mediaQuery - 150,
+                            percent: indicatorPercent,
+                            animation: true,
+                            animationDuration: 2500,
+                            progressColor: Colors.white,
+                            backgroundColor: Colors.black12,
+                            barRadius: const Radius.circular(16),
+                          ),
+                          Text(
+                            '$storagePercentUsed%',
+                            style:
+                                Theme.of(context).textTheme.bodyText1!.copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                          ),
+                        ],
+                      ),
+                      sizedBox,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          cardSubtitles(
+                            'Total: ${(totalStorageInGB ~/ GIGAGABYTE)} GB, \t\tFree: ${(freeStorageInGB ~/ GIGAGABYTE)} GB',
+                            mediaQuery,
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ],
               ),
+              const SizedBox(height: 5),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget cardSubtitles(String title, var mediaQuery) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Container(
+        width: mediaQuery - 180,
+        child: Text(
+          title,
+          overflow: TextOverflow.ellipsis,
+          style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                color: Colors.white,
+                fontWeight: FontWeight.w400,
+                fontSize: 14,
+              ),
         ),
       ),
     );

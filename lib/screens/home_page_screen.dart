@@ -22,6 +22,7 @@ import '../widgets/home_title_widget.dart';
 import '../widgets/storage_widget.dart';
 import '../widgets/battery_widget.dart';
 import '../widgets/system_widget.dart';
+import '../widgets/device_widget.dart';
 
 import '../widgets/card_titles_widget.dart';
 
@@ -31,11 +32,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size.width;
@@ -53,19 +49,24 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            HomeTitleWidget(title: 'RAM'),
-            RamWidget(),
-            HomeTitleWidget(title: 'CPU'),
-            ProcessorWidget(),
-            HomeTitleWidget(title: 'System'),
-            SystemWidget(),
-            HomeTitleWidget(title: 'Stats'),
-            StorageWidget(),
-            BatteryWidget(),
-            const SizedBox(height: 80),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Column(
+            children: [
+              HomeTitleWidget(title: 'RAM'),
+              RamWidget(),
+              HomeTitleWidget(title: 'Device'),
+              DeviceWidget(),
+              HomeTitleWidget(title: 'CPU'),
+              ProcessorWidget(),
+              HomeTitleWidget(title: 'System'),
+              SystemWidget(),
+              HomeTitleWidget(title: 'Stats'),
+              StorageWidget(),
+              BatteryWidget(),
+              const SizedBox(height: 80),
+            ],
+          ),
         ),
       ),
     );
