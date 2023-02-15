@@ -1,7 +1,10 @@
-import 'package:enefty_icons/enefty_icons.dart';
+import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import "package:system_info/system_info.dart";
+import 'package:flutter/services.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import "package:system_info/system_info.dart";
 import 'package:enefty_icons/enefty_icons.dart';
 
 //Widgets
@@ -29,7 +32,6 @@ class _ProcessorWidgetState extends State<ProcessorWidget> {
 
   void setVendor() async {
     final processors = SysInfo.processors;
-    print('ANDROIDINFOTEST: ${SysInfo.userName}');
 
     for (var processor in processors) {
       setState(() {
@@ -41,6 +43,14 @@ class _ProcessorWidgetState extends State<ProcessorWidget> {
       });
     }
   }
+
+  final List<String> _processorsBrand = [
+    'qualcomm',
+    'exynos',
+    'mediatek',
+    'unisoc',
+    'kirin',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -58,9 +68,19 @@ class _ProcessorWidgetState extends State<ProcessorWidget> {
             Row(
               children: [
                 Image.asset(
-                  processorVendor.toLowerCase() == 'qualcomm'
-                      ? 'assets/qualcomm.png'
-                      : 'assets/noimage.png',
+                  processorVendor.toLowerCase() == _processorsBrand[0]
+                      ? 'assets/processors/qualcomm.png'
+                      : processorVendor.toLowerCase() == _processorsBrand[1]
+                          ? 'assets/processors/exynos.png'
+                          : processorVendor.toLowerCase() == _processorsBrand[2]
+                              ? 'assets/processors/mediatek.png'
+                              : processorVendor.toLowerCase() ==
+                                      _processorsBrand[3]
+                                  ? 'assets/processors/unisoc.png'
+                                  : processorVendor.toLowerCase() ==
+                                          _processorsBrand[4]
+                                      ? 'assets/processors/kirin.png'
+                                      : 'assets/noimage.png',
                   height: 100,
                   width: 100,
                 ),

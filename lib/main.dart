@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 //Screens
 import './screens/home_page_screen.dart';
+import './screens/device_info_screen.dart';
+import './screens/cpu_info_screen.dart';
 
 void main() => runApp(DeviceInfo());
 
@@ -17,9 +19,14 @@ class _DeviceInfoState extends State<DeviceInfo> {
       debugShowCheckedModeBanner: false,
       title: 'Device Info',
       theme: ThemeData(
-        primarySwatch: Colors.orange,
+        brightness: Brightness.dark,
       ),
+      themeMode: ThemeMode.dark,
       home: HomePage(),
+      routes: {
+        DeviceInfoScreen.routeName: (ctx) => DeviceInfoScreen(),
+        CpuInfoScreen.routeName: (ctx) => CpuInfoScreen(),
+      },
     );
   }
 }

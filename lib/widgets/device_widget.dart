@@ -84,9 +84,16 @@ class _DeviceWidgetState extends State<DeviceWidget> {
                 Image.asset(
                   _deviceData['brand'].toLowerCase() == _brands[0]
                       ? 'assets/logos/oneplus.png'
-                      : _deviceData['brand'].toLowerCase() == _brands[4]
+                      : _deviceData['brand'].toLowerCase() == _brands[1]
                           ? 'assets/logos/samsung.png'
-                          : 'assets/noimage.png',
+                          : _deviceData['brand'].toLowerCase() == _brands[2]
+                              ? 'assets/logos/asus.png'
+                              : _deviceData['brand'].toLowerCase() == _brands[3]
+                                  ? 'assets/logos/lg.png'
+                                  : _deviceData['brand'].toLowerCase() ==
+                                          _brands[4]
+                                      ? 'assets/logos/motorola.png'
+                                      : 'assets/noimage.png',
                   height: 100,
                   width: 100,
                 ),

@@ -24,6 +24,10 @@ import '../widgets/battery_widget.dart';
 import '../widgets/system_widget.dart';
 import '../widgets/device_widget.dart';
 
+//Screens
+import '../screens/device_info_screen.dart';
+import '../screens/cpu_info_screen.dart';
+
 import '../widgets/card_titles_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -37,9 +41,8 @@ class _HomePageState extends State<HomePage> {
     final mediaQuery = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: Colors.grey.shade900,
       appBar: AppBar(
-        backgroundColor: Colors.grey.shade900,
+        elevation: 0,
         title: Center(
           child: Text(
             'Device Information',
@@ -56,9 +59,19 @@ class _HomePageState extends State<HomePage> {
               HomeTitleWidget(title: 'RAM'),
               RamWidget(),
               HomeTitleWidget(title: 'Device'),
-              DeviceWidget(),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pushNamed(DeviceInfoScreen.routeName);
+                },
+                child: DeviceWidget(),
+              ),
               HomeTitleWidget(title: 'CPU'),
-              ProcessorWidget(),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pushNamed(CpuInfoScreen.routeName);
+                },
+                child: ProcessorWidget(),
+              ),
               HomeTitleWidget(title: 'System'),
               SystemWidget(),
               HomeTitleWidget(title: 'Stats'),
