@@ -3,6 +3,7 @@
  - Hello everyone, this is another basic flutter project, an APP that collects device hardware information and displays it in the UI for the user.
 
 Project details:
+
 Used tecnologies:
  - Flutter
 
