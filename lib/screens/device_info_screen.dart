@@ -47,6 +47,7 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen> {
     final mediaQuery = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
+        titleSpacing: 0,
         elevation: 0,
         title: const Text('Device'),
       ),

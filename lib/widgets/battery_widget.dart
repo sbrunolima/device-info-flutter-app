@@ -1,5 +1,5 @@
-import 'package:battery_info/model/android_battery_info.dart';
 import 'package:flutter/material.dart';
+import 'package:battery_info/model/android_battery_info.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:battery_info/battery_info_plugin.dart';
 import 'package:battery_info/enums/charging_status.dart';
@@ -50,7 +50,10 @@ class _BatteryWidgetState extends State<BatteryWidget> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             CardTitlesWidget(
-                              title: 'Battery',
+                              title: snapshot.data!.chargingStatus !=
+                                      ChargingStatus.Charging
+                                  ? 'Battery'
+                                  : 'Battery (Charging...)',
                               isTitle: true,
                             ),
                             sizedBox,
@@ -80,29 +83,21 @@ class _BatteryWidgetState extends State<BatteryWidget> {
                               ],
                             ),
                             sizedBox,
-                            snapshot.data!.chargingStatus !=
-                                    ChargingStatus.Charging
-                                ? Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          cardSubtitles(
-                                            'Voltage: ${(snapshot.data!.voltage)}mV, \t\tTemp: ${(snapshot.data!.temperature)}°C',
-                                            mediaQuery,
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  )
-                                : cardSubtitles(
-                                    'Charge time: ${(snapshot.data!.chargeTimeRemaining! / 1000 / 60).truncate()} minutes',
-                                    mediaQuery,
-                                  ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    cardSubtitles(
+                                      'Voltage: ${(snapshot.data!.voltage)}mV, \t\tTemp: ${(snapshot.data!.temperature)}°C',
+                                      mediaQuery,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       ],
@@ -114,7 +109,24 @@ class _BatteryWidgetState extends State<BatteryWidget> {
             ),
           );
         }
-        return Text('Loading...');
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const CircularProgressIndicator(
+              color: Colors.lightGreenAccent,
+            ),
+            const SizedBox(width: 10),
+            Text(
+              'Loading...',
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                    color: Colors.lightGreenAccent,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16,
+                  ),
+            )
+          ],
+        );
       },
     );
   }

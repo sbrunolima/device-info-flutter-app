@@ -10,12 +10,10 @@ class RamWidget extends StatefulWidget {
 }
 
 class _RamWidgetState extends State<RamWidget> {
+  static int MEGABYTE = 1024 * 1024;
   String ramPercent = '';
   int usedRam = 0;
   double indicatorPercent = 0;
-  static int MEGABYTE = 1024 * 1024;
-
-  int _deviceMemory = -1;
 
   @override
   void initState() {
@@ -33,7 +31,6 @@ class _RamWidgetState extends State<RamWidget> {
       indicatorPercent = _percentStepTwo / 100;
       usedRam = _totalRam - _freeRam;
     });
-    print('Calculating...');
   }
 
   @override

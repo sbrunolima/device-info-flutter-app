@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 //Screens
 import './screens/home_page_screen.dart';
@@ -15,6 +16,10 @@ class DeviceInfo extends StatefulWidget {
 class _DeviceInfoState extends State<DeviceInfo> {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Device Info',

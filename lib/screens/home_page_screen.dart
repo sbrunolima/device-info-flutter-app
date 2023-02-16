@@ -1,19 +1,5 @@
-import 'dart:async';
-import 'dart:io';
-
-import 'package:battery_info/model/android_battery_info.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
-import 'package:device_info_plus/device_info_plus.dart';
-import 'package:percent_indicator/percent_indicator.dart';
-import "package:system_info/system_info.dart";
-import 'package:cpu_reader/cpu_reader.dart';
-import 'package:cpu_reader/cpuinfo.dart';
-import 'package:storage_info/storage_info.dart';
-import 'package:battery_info/battery_info_plugin.dart';
-import 'package:battery_info/model/android_battery_info.dart';
-import 'package:battery_info/enums/charging_status.dart';
+import 'package:enefty_icons/enefty_icons.dart';
 
 //Widgets
 import '../widgets/ram_widget.dart';
@@ -28,8 +14,6 @@ import '../widgets/device_widget.dart';
 import '../screens/device_info_screen.dart';
 import '../screens/cpu_info_screen.dart';
 
-import '../widgets/card_titles_widget.dart';
-
 class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
@@ -43,12 +27,18 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Center(
-          child: Text(
-            'Device Information',
-            style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                color: Colors.white, fontWeight: FontWeight.w500, fontSize: 26),
-          ),
+        title: Row(
+          children: [
+            const Icon(EneftyIcons.a_3_square_outline),
+            const SizedBox(width: 10),
+            Text(
+              'Device Information',
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 20),
+            ),
+          ],
         ),
       ),
       body: SingleChildScrollView(

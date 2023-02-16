@@ -1,9 +1,4 @@
-import 'dart:async';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import "package:system_info/system_info.dart";
 import 'package:enefty_icons/enefty_icons.dart';
 
@@ -16,8 +11,6 @@ class ProcessorWidget extends StatefulWidget {
 }
 
 class _ProcessorWidgetState extends State<ProcessorWidget> {
-  static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
-  Map<String, dynamic> _deviceData = <String, dynamic>{};
   String processorVendor = '';
   String processorName = '';
   String processorCores = '';
